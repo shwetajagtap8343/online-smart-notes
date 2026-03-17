@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Dashboard - MLA Notes</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+
+  <div class="sidebar">
+    <h2>My Notes</h2>
+    <ul>
+      <li class="active">Dashboard</li>
+      <li onclick="location.href='upload.html'">Upload Notes</li>
+      <li onclick="location.href='myNotes.html'">My Notes</li>
+      <li onclick="location.href='bookmarks.html'">Bookmarks</li>
+    </ul>
+  </div>
+
+  <div class="main">
+    <h2>Dashboard</h2>
+    <div class="cards">
+      <div class="card">
+        <h3 id="totalNotes">0</h3>
+        <p>Total Notes</p>
+      </div>
+      <div class="card">
+        <h3 id="bookmarkCount">0</h3>
+        <p>Bookmarks</p>
+      </div>
+    </div>
+
+    <h3>Recent Notes</h3>
+    <div id="recentNotes" class="notes-grid"></div>
+  </div>
+</div>
+
+<script>
+let notes = JSON.parse(localStorage.getItem("notes")) || [];
+let bookmarks = JSON.parse(localStorage.getItem("bookmarks")) || [];
+
+document.getElementById("totalNotes").innerText = notes.length;
+document.getElementById("bookmarkCount").innerText = bookmarks.length;
+
+let container = document.getElementById("recentNotes");
+container.innerHTML = "";
+notes.slice(-4).reverse().forEach((note,index)=>{
+  container.innerHTML += `<div class="note">
+    <h3>${note.title}</h3>
+    <p>${note.content}</p>
+  </div>`;
+});
+</script>
+</body>
+</html>
